@@ -4,6 +4,7 @@ import express, {
   type Response,
   type NextFunction,
 } from 'express';
+import { User, type IUser } from './models/User.js';
 const app: Express = express();
 const port = 3000;
 
@@ -23,6 +24,16 @@ app.listen(port, () => {
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
+});
+
+app.get('/user', async (req: Request, res: Response) => {
+  try {
+    const user:IUser[] = await User.find();
+    res.json(user);
+    res.json({});
+  } catch (error) {
+    res.status(400).json({ message: `Some error occured!` });
+  }
 });
 
 //post route
