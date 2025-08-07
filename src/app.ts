@@ -1,0 +1,48 @@
+import express, {
+  type Express,
+  type Request,
+  type Response,
+  type NextFunction,
+} from 'express';
+const app: Express = express();
+const port = 3000;
+
+app.use(express.json());
+
+interface CustomRequest extends Request {
+  startTime?: number;
+}
+//middleware
+app.use((req: CustomRequest, res: Response, next: NextFunction) => {
+  req.startTime = Date.now();
+  next();
+});
+app.listen(port, () => {
+  console.log(`first app listening on port ${port}`);
+});
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!');
+});
+
+//post route
+interface User {
+  name: string;
+  age: number;
+}
+
+app.post('/user', (req: Request<{}, {}, User>, res: Response) => {
+  const { name, age } = req.body;
+  res.json({
+    message: `User created with Name: ${name}, Age: ${age}`,
+  });
+});
+
+//user based on ID
+
+app.get('/user/:id', (req: Request<{ id: string }>, res: Response) => {
+  const { id } = req.params;
+  res.json({
+    message: `User with ID: ${id}`,
+  });
+});
