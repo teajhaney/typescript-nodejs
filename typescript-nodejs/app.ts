@@ -4,7 +4,7 @@ import express, {
   type Response,
   type NextFunction,
 } from 'express';
-import { User, type IUser } from './models/User.js';
+import { User, type IUser } from './models/User.ts';
 const app: Express = express();
 const port = 3000;
 
@@ -28,7 +28,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/user', async (req: Request, res: Response) => {
   try {
-    const user:IUser[] = await User.find();
+    const user: IUser[] = await User.find();
     res.json(user);
     res.json({});
   } catch (error) {
