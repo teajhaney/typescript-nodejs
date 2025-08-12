@@ -52,6 +52,41 @@ async function redisDataStructures() {
     // await client.sRem('users', 'user1'); //remove members
     // const remainingUsers = await client.sMembers('users');
     // console.log(remainingUsers);
+
+    //sorted sets
+    //zadd, zrange, zrank, zrem
+    // await client.del('cart');
+    // await client.zAdd('cart', [
+    //   { score: 400, value: 'cart 1' },
+    //   { score: 200, value: 'cart 2' },
+    //   { score: 300, value: 'cart 3' },
+    // ]);
+
+    // const getToCartItem = await client.zRange('cart', 0, -1);
+    // console.log(getToCartItem);
+
+    // const cartWithScore = await client.zRangeWithScores('cart', 0, -1);
+    // console.log(cartWithScore);
+
+    // const cartWithRank = await client.zRank('cart', 'cart 2');
+    // console.log(cartWithRank);
+
+    //hashes -> hset, hget, hgetall, hdel
+    await client.del('product:1');
+    await client.hSet('product:1', {
+      name: 'Product 1',
+      description: 'product one description',
+      rating: '5',
+    });
+    const getProductProperties = await client.hGet('product:1', 'rating');
+    console.log(getProductProperties);
+
+    const getProductDetails = await client.hGetAll('product:1');
+    console.log(getProductDetails);
+
+    await client.hDel('product:1', 'rating');
+    const getUpaatedProductDetails = await client.hGetAll('product:1');
+    console.log(getUpaatedProductDetails);
   } catch (error) {
     console.error(error);
   } finally {
