@@ -62,14 +62,14 @@ async function redisDataStructures() {
     //   { score: 300, value: 'cart 3' },
     // ]);
 
-    // const getToCartItem = await client.zRange('cart', 0, -1);
-    // console.log(getToCartItem);
+    const getToCartItem = await client.zRange('cart', 0, -1);
+    console.log(getToCartItem);
 
-    // const cartWithScore = await client.zRangeWithScores('cart', 0, -1);
-    // console.log(cartWithScore);
+    const cartWithScore = await client.zRangeWithScores('cart', 0, -1);
+    console.log(cartWithScore);
 
-    // const cartWithRank = await client.zRank('cart', 'cart 2');
-    // console.log(cartWithRank);
+    const cartWithRank = await client.zRank('cart', 'cart 2');
+    console.log(cartWithRank);
 
     //hashes -> hset, hget, hgetall, hdel
     await client.del('product:1');
