@@ -54,13 +54,13 @@ async function redisDataStructures() {
     // console.log(remainingUsers);
 
     //sorted sets
-    //zadd, zrange, zrank, zrem
-    // await client.del('cart');
-    // await client.zAdd('cart', [
-    //   { score: 400, value: 'cart 1' },
-    //   { score: 200, value: 'cart 2' },
-    //   { score: 300, value: 'cart 3' },
-    // ]);
+    zadd, zrange, zrank, zrem
+    await client.del('cart');
+    await client.zAdd('cart', [
+      { score: 400, value: 'cart 1' },
+      { score: 200, value: 'cart 2' },
+      { score: 300, value: 'cart 3' },
+    ]);
 
     const getToCartItem = await client.zRange('cart', 0, -1);
     console.log(getToCartItem);
